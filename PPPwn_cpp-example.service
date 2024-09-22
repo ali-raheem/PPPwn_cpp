@@ -1,0 +1,19 @@
+# Example systemd service file
+# This file should be placed in /etc/systemd/system/PPPwn_cpp.service once appropriately edited
+# As well as ensuring the correct command options are passed to pppwn the working directory may need to be adjusted.
+[Unit]
+Description=PPPwn_cpp PS4 Jailbreak
+After=network.target
+
+[Service]
+Type=forking
+User=root
+WorkingDirectory=/home/user/Workspace/PPPwn_cpp
+ExecStart=/usr/bin/screen -dmS pppwn ./pppwn --interface eth1 --fw 900 --stage1 ./stage1.bin --stage2 ./stage2.bin --timeout 10 --auto-retry --web
+ExecStop=/usr/bin/screen -S pppwn -X quit
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+
